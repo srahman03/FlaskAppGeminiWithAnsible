@@ -7,8 +7,6 @@ import time
 
 app = Flask ("flaskwithGemini")
 app.secret_key = "abc" 
-#not safe
-#genai.configure(api_key="AIzaSyC20YOvndEzMYtvT2znvoTxkUdQguuTGRU")
 api_key = os.getenv("GENAI_API_KEY")
 genai.configure(api_key=api_key)
 prompt= """Write Recommendations to be followed by SRE when the production Server load is high. 
