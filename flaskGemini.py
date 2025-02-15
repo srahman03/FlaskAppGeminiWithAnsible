@@ -3,10 +3,14 @@ import google.generativeai as genai
 import os
 import psutil
 import time
+from dotenv import load_dotenv
 
-
-app = Flask ("flaskwithGemini")
+app = Flask(__name__)
 app.secret_key = "abc" 
+
+# Load environment variables from .env file
+load_dotenv()
+
 api_key = os.getenv("GENAI_API_KEY")
 genai.configure(api_key=api_key)
 prompt= """Write Recommendations to be followed by SRE when the production Server load is high. 
@@ -32,6 +36,7 @@ def Home():
 def diskLoad():
     disk_usage = psutil.disk_usage('/')
     return jsonify({
+        "Disk Usage"
         "total": convert_bytes(disk_usage.total),
         "used": convert_bytes(disk_usage.used),
         "free": convert_bytes(disk_usage.free),
@@ -49,6 +54,7 @@ def networkLoad():
     bytes_recv_per_sec = net2.bytes_recv - net1.bytes_recv
 
     return jsonify({
+        "Network Load"
         "total_sent": convert_bytes(net2.bytes_sent),
         "total_received": convert_bytes(net2.bytes_recv),
         "upload_speed": convert_bytes(bytes_sent_per_sec) + "/s",
@@ -60,9 +66,11 @@ def memoryLoad():
     mem = psutil.virtual_memory()
     
     return jsonify({
+        "Memory Load"
         "total": convert_bytes(mem.total),
         "used": convert_bytes(mem.used),
         "free": convert_bytes(mem.available),
         "percent": f"{mem.percent:.2f}%"
     })
-app.run(host="0.0.0.0", port=5000, debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
