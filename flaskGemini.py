@@ -5,7 +5,7 @@ import psutil
 import time
 
 
-app = Flask ("flaskwithGemini")
+app = Flask(__name__)
 app.secret_key = "abc" 
 api_key = os.getenv("GENAI_API_KEY")
 genai.configure(api_key=api_key)
@@ -65,4 +65,5 @@ def memoryLoad():
         "free": convert_bytes(mem.available),
         "percent": f"{mem.percent:.2f}%"
     })
-app.run(host="0.0.0.0", port=5000, debug=True)
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000, debug=True)
