@@ -58,4 +58,10 @@ This project is a Flask-based web application that integrates the Gemini API. It
 
 ![image](https://github.com/user-attachments/assets/180e69f6-71fa-4db4-ad2c-f729f592bad6)
 
-
+## Lineup of app:
+- Client requests http on port 80 due to nginx config
+- Nginx receives requests and displays static content and any complex requests go to Gunicorn
+- Gunicorn (WSGI server)  receives and uses worker processes to pass requests to flask app
+- Flask app processes and executes databases queries, api calls and prepares response
+- Flask uses Gunicorn to send response back to nginx
+- Nginx receives the response and forwards the response to client
