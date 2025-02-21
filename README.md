@@ -17,6 +17,13 @@ This project is a Flask-based web application that integrates the Gemini API. It
 ##### Can be done without ansible
 - `yum install nginx`
 - `yum install mysql-server`
+
+  Example of Ansible Script:
+
+![image](https://github.com/user-attachments/assets/640bc7a8-d38a-414e-9b1d-da94297019dc)
+
+![image](https://github.com/user-attachments/assets/4005496d-03f0-45e2-bde5-a92496f27fd4)
+
 ##### Need to configure mysql 
 
 ### System Installations on VM that has NGINX
@@ -30,3 +37,25 @@ This project is a Flask-based web application that integrates the Gemini API. It
   
 ### Created a Systemd Service File for Flask App
 ### Configure Nginx as a Reverse Proxy for Flask Application
+
+### Example of Jenkins Pipeline with dependencies, systemd service file and configuring nginx as a reverse proxy
+#### Make sure to give root pivileges to Jenkins user - mine was editing the visudo file
+
+#### Step 1: Clone Repo:
+
+![image](https://github.com/user-attachments/assets/b39af79f-0211-4e9e-b3f9-ca0d293e527f)
+
+#### Step 2: Install Dependencies:
+
+![image](https://github.com/user-attachments/assets/a80e70fa-578f-41b9-89ed-bed47f569db6)
+
+#### Step 4: Creating SystemD file for Flask:
+####Also give the right permissions and execution rights to the folder to be accessed and used by root and nginx server
+
+![image](https://github.com/user-attachments/assets/c9d2dd4c-57d2-45ce-8be9-b270e6a8ae07)
+
+#### Step 5: Configuring nginx to receive requests and pass requests to flask app (reverse proxy):
+
+![image](https://github.com/user-attachments/assets/180e69f6-71fa-4db4-ad2c-f729f592bad6)
+
+
