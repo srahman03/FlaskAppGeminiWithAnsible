@@ -20,7 +20,7 @@ Respond in html, ignore header and body tags"""
 def convert_bytes(size):
     """Convert bytes to a human-readable format (KB, MB, GB, etc.)."""
     for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
-        if size < 1024:
+        if size < 1024:#1024B:1kb - 1024kb:1mb etc so when smaller, it is at the right unit so prints value.00 {unit}
             return f"{size:.2f} {unit}"
         size /= 1024
     return f"{size:.2f} PB"  # Handles very large sizes
@@ -29,12 +29,12 @@ def convert_bytes(size):
 def Home():
     model = genai.GenerativeModel('gemini-1.5-flash')
     response = model.generate_content(prompt)
-    session["text"] = response.text.strip("\n").strip("`").lstrip("html")
+    session["text"] = response.text.strip("\n").strip("`").lstrip("html") # lstrip-leftside characters that start with html
     return render_template('index.html')
 
 @app.route('/2')
 def diskLoad():
-    disk_usage = psutil.disk_usage('/')
+    disk_usage = psutil.disk_usage('/')#returns tuple
     return jsonify({
         "Disk Usage"
         "total": convert_bytes(disk_usage.total),
@@ -45,13 +45,13 @@ def diskLoad():
 
 @app.route('/3')
 def networkLoad():
-    net1 = psutil.net_io_counters()  # Get initial network data
+    net1 = psutil.net_io_counters()  # Get initial network data # return tuples of bytes_sent,bytes_recv
     time.sleep(1)  # Wait 1 second
     net2 = psutil.net_io_counters()  # Get network data again
 
-    # Calculate bytes per second
-    bytes_sent_per_sec = net2.bytes_sent - net1.bytes_sent
-    bytes_recv_per_sec = net2.bytes_recv - net1.bytes_recv
+    # Calculate bytes per second # calculating average bytes
+    bytes_sent_per_sec = net2.bytes_sent - net1.bytes_sent #Upload speed
+    bytes_recv_per_sec = net2.bytes_recv - net1.bytes_recv #Download Speed
 
     return jsonify({
         "Network Load"
@@ -63,7 +63,7 @@ def networkLoad():
 
 @app.route('/4')
 def memoryLoad():
-    mem = psutil.virtual_memory()
+    mem = psutil.virtual_memory()#tuple
     
     return jsonify({
         "Memory Load"
