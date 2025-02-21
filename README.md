@@ -50,7 +50,7 @@ This project is a Flask-based web application that integrates the Gemini API. It
 ![image](https://github.com/user-attachments/assets/a80e70fa-578f-41b9-89ed-bed47f569db6)
 
 #### Step 4: Creating SystemD file for Flask:
-####Also give the right permissions and execution rights to the folder to be accessed and used by root and nginx server
+#### Also give the right permissions and execution rights to the folder to be accessed and used by root and nginx server
 
 ![image](https://github.com/user-attachments/assets/c9d2dd4c-57d2-45ce-8be9-b270e6a8ae07)
 
